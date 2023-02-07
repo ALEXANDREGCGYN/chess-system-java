@@ -35,6 +35,15 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
  * NÃO RETORNA a matriz de peças inteira! SOMENTE uma peça por vez!
  */
 	
+	public Piece piece(int row, int column) {
+		return pieces[row][column];
+		// Retorna a matriz na linha e coluna
+	}
+	
+	public Piece piece(Position position) { 
+		return pieces[position.getRow()][position.getColumn()];
+		// Sobrecarga retorna a peça pela posição
+	}
 	
 	
 }
