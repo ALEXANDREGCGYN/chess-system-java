@@ -2,8 +2,13 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
+import boardgame.Position;
+import chess.pieces.King;
+import chess.pieces.Rook;
 
-public class ChessMatch { // Esta classe CONTÉM AS REGRAS do jogo de xadrez!
+public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184
+	
+	// Esta classe CONTÉM AS REGRAS do jogo de xadrez!
 	
 	private Board board;
 
@@ -13,6 +18,7 @@ public class ChessMatch { // Esta classe CONTÉM AS REGRAS do jogo de xadrez!
 		 * Quem deve saber a dimensão do tabuleiro é a classe que contém 
 		 * as regras do jogo!
 		 */
+		initialSetup();
 	}
 	
 	public ChessPiece[][] getPieces(){
@@ -38,7 +44,11 @@ public class ChessMatch { // Esta classe CONTÉM AS REGRAS do jogo de xadrez!
 		return mat;	// Retorna a matriz de peças da partida de xadrez.
 	}
 	
-	
+	private void initialSetup() {
+		board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
+		board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+	}
 	
 	
 	

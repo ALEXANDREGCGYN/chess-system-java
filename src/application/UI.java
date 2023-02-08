@@ -2,7 +2,9 @@ package application;
 
 import chess.ChessPiece;
 
-public class UI { // Função 'UI' User Interface, imprimi as peças da partida!
+public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184
+	
+	// Função 'UI' User Interface, imprimi as peças da partida!
 	
 	public static void printBoard(ChessPiece[][] pieces) { 
 

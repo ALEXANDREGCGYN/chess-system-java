@@ -45,5 +45,21 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		// Sobrecarga retorna a peça pela posição
 	}
 	
-	
+	public void placePiece(Piece piece, Position position) {
+		pieces[position.getRow()][position.getColumn()] = piece;
+		piece.position = position;
+		/* 
+		 * O método acessa a matriz 'pieces[][]' do tabuleiro na linha e
+		 * coluna informadas, atribui a peça 'piece' que veio como argumento!
+		 * 
+		 * A matriz de peças 'pieces[][]' é a matriz declarada acima no início 
+		 * da classe 'Board' e instanciada no contrutor!
+		 * 
+		 * A peça passa a não estar na posição nula, mas na posição 'position'
+		 * informada no método!
+		 * 
+		 * Mesmo que seja do tipo 'protected', a posição 'position' é acessível
+		 * à classe 'Board' por pertencer ao mesmo pacote da classe 'Piece'. 
+		 */
+	}
 }
