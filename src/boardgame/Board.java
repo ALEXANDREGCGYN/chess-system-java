@@ -7,6 +7,10 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 	private Piece[][] pieces; // Matriz de peças
 	
 	public Board(int rows, int columns) {
+		if (rows < 1 || columns < 1) {
+			throw new BoardException("Error creating board: there must be at least 1 row and 1 column!");
+		} // Aula 186 = Programação defensiva!
+
 		this.rows = rows;
 		this.columns = columns;
 		pieces = new Piece[rows][columns];
@@ -17,17 +21,17 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		return rows;
 	}
 
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
+	/* 'public void setRows(int rows) {' EXCLUÍDO PARA NÃO PERMITIR 
+	 * ALTERAR O NÚMERO DE LINHAS DO TABULEIRO! 
+	 */
 
 	public int getColumns() {
 		return columns;
 	}
 
-	public void setColumns(int columns) {
-		this.columns = columns;
-	}
+	/* 'public void setColumns(int columns) {' EXCLUÍDO PARA NÃO PERMITIR 
+	 * ALTERAR O NÚMERO DE COLUNAS DO TABULEIRO! 
+	 */
 	
 /* 
  * GET e SET da peça NÃO será usado! o projeto prevê métodos próprios para
@@ -36,16 +40,35 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
  */
 	
 	public Piece piece(int row, int column) {
+		if (!positionExists(row, column)) {
+			throw new BoardException("Position not on the board!");
+		} // Aula 186 = Programação defensiva!
+		/* Ao acessar uma peça 'piece' em uma determinada posição 'row'
+		 * e 'column', caso a posição não exista, lançará uma exceção!
+		 */
 		return pieces[row][column];
 		// Retorna a matriz na linha e coluna
 	}
-	
+	;
 	public Piece piece(Position position) { 
+		if (!positionExists(position)) {
+			throw new BoardException("Position not on the board!");
+		} // Aula 186 = Programação defensiva!
+		/* Ao acessar uma peça 'piece' em uma determinada posição 
+		 * 'position', caso a posição não exista, também lançará 
+		 * uma mensagem de exceção!
+		 */
 		return pieces[position.getRow()][position.getColumn()];
 		// Sobrecarga retorna a peça pela posição
 	}
 	
-	public void placePiece(Piece piece, Position position) {
+	public void placePiece(Piece piece, Position position) { 
+		// Coloca uma peça em uma dada posição!
+		
+		if (thereIsAPiece(position)) {
+			throw new BoardException("There is already a piece on position " + position + "!");
+		} // Se já existir uma peça nesta dada posição, não poderá inserir outra!
+		
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 		/* 
@@ -62,4 +85,44 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		 * à classe 'Board' por pertencer ao mesmo pacote da classe 'Piece'. 
 		 */
 	}
+	
+// Projeto Sistema de Jogo de Xadrez - Aula 186 = Testando se a posição existe!
+	
+	private boolean positionExists(int row, int column) {
+		/* Método auxiliar usado para testar se uma posição existe pela
+		 * linha e pela coluna de forma mais fácil que pela posição como
+		 * no método abaixo!
+		 */
+		
+		return row >= 0 && row < rows && column >= 0 && column < columns;
+		/* Testa se a posição está dentro do tabuleiro verificando se
+		 * a linha 'row' é maior/igual a zero e menor que o atributo 'rows' 
+		 * que é a altura do tabuleiro passado pela classe, junto com a 
+		 * coluna 'column' sendo maior/igual a zero e menor que o atributo 
+		 * 'columns' passado pela classe.
+		 */
+
+	}
+	
+	public boolean positionExists(Position position) {
+		return positionExists(position.getRow(), position.getColumn());
+		
+		/*
+		 * Reaproveitamento de código = método 'positionExists()' acima!
+		 */
+	}
+	
+	public boolean thereIsAPiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Position not on the board!");
+		} // Testa se existe uma dada posição, para então receber uma peça!
+		
+		return piece(position) != null; 
+		
+		/* 
+		 * Método acima que retornara a peça que estiver na matriz
+		 * na posição informada!
+		 */
+	}
+
 }
