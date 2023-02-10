@@ -2,6 +2,14 @@ package boardgame;
 
 public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 	
+	/*  A posição da peça nessa classe é dada por uma matriz 'Piece [][]'
+	 *  com linhas e colunas de [0,0] até [8,8]. 
+	 *  
+	 *  Diferente da classe 'ChessPosition' onde a posição é a referência 
+	 *  da letra da coluna, que vai de 'a' até 'h', com o número das 
+	 *  linhas de 1 a 8 e que são visíveis ao jogador!
+	 */
+	
 	private int rows;
 	private int columns;
 	private Piece[][] pieces; // Matriz de peças

@@ -1,8 +1,6 @@
 package chess;
 
 import boardgame.Board;
-import boardgame.Piece;
-import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -44,10 +42,41 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184
 		return mat;	// Retorna a matriz de peças da partida de xadrez.
 	}
 	
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
+	/* Recebe as coordenadas do xadrez!
+	 * Usa a operação 'toPosition()' da classe 'ChessPosition' para 
+	 * instanciar as peças de xadrez informando as coordenadas no sistema 
+	 * do xadrez e não no sistema da matriz para não ficar confuso!!!
+	 */
+		
+		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		/*
+		 * Chama o 'placePiece' da classe 'Board' passando a peça 'piece'. 
+		 * Intancia uma 'ChessPosition' recebendo a coluna e a linha e 
+		 * converte para a posição de matriz com o 'toPosition()'.
+		 * 
+		 * Temos então uma operação de colocar peça passando as coordenadas
+		 * do xadrez.
+		 */
+
+	}
+	
 	private void initialSetup() {
-		board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
-		board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
-		board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+		//board.placePiece(new Rook(board, Color.WHITE), new Position(2, 1));
+		/* 
+		 * Ao invés de passar a posição da matriz, informaremos a posição do
+		 * tabuleiro.
+		 * Ex.: Matriz (2 , 1) = Tabuleiro b6.
+		 * Resultando em... 
+		 */
+		placeNewPiece('b', 6, new Rook(board, Color.WHITE));
+		
+		//board.placePiece(new King(board, Color.BLACK), new Position(0, 4));
+		placeNewPiece('e', 8, new King(board, Color.BLACK));
+		
+		//board.placePiece(new King(board, Color.WHITE), new Position(7, 4));
+		placeNewPiece('e', 1, new King(board, Color.WHITE));
+
 	}
 	
 	
