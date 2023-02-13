@@ -1,6 +1,8 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -42,6 +44,49 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		return mat;	// Retorna a matriz de peças da partida de xadrez.
 	}
 	
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		Position source = sourcePosition.toPosition(); // Posição de origem da peça
+		Position target = targetPosition.toPosition(); // Posição de destino da peça
+		validateSourcePosition(source);
+		// Valida SE na posição de origem 'source' realmente havia uma peça!
+		Piece capturedPiece = makeMove(source, target);
+		// Realiza o movimento da peça informando origem e destino no formato de matriz!
+		return (ChessPiece)capturedPiece;
+		/* Retorna a peça capturada fazendo um 'downcasting' pois a peça
+		 * capturada é do tipo 'Piece' e o método é do tipo 'ChessPiece'.
+		 */
+	}
+
+	private Piece makeMove(Position source, Position target) {
+		Piece p = board.removePiece(source); 
+		// Retira a peça que estava na posição de origem 'source'.
+		Piece capturedPiece = board.removePiece(target);
+		// Remove a possível peça que esteja na posição de destino 'target'.
+		board.placePiece(p, target);
+		/* Removidas as duas peças (origem e destino), é possível colocar
+		 * a peça que estava na origem 'Piece p' na posição 'target' de 
+		 * destino com o 'placePiece(p, target)'.  
+		 */
+		return capturedPiece;
+	}
+	
+	
+	
+	private void validateSourcePosition(Position position) {
+		if (!board.thereIsAPiece(position)) { //Se não existir uma peça na posição...
+			throw new ChessException("There is no piece on source position!");
+			/*
+			 * Este método 'thereIsAPiece()' pode gerar uma nova exceção pois
+			 * foi construído na classe 'Board' lançando uma 'BoardException'.
+			 * Porém, o método 'validateSourcePosition()' aqui descrito lança 
+			 * uma 'ChessException'.
+			 * Para simplificar o tratamento das exceções pelo programa, foi 
+			 * atualizada a classe 'ChessException' com a troca da 
+			 * 'RuntimeException' por uma 'BoardException'.
+			 */
+		}
+	}
+
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 	/* Recebe as coordenadas do xadrez!
 	 * Usa a operação 'toPosition()' da classe 'ChessPosition' para 
@@ -92,12 +137,7 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
         placeNewPiece('e', 7, new Rook(board, Color.BLACK));
         placeNewPiece('e', 8, new Rook(board, Color.BLACK));
         placeNewPiece('d', 8, new King(board, Color.BLACK));
-		
-		
 
 	}
-	
-	
-	
 	
 }

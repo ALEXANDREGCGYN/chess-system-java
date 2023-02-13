@@ -1,6 +1,10 @@
 package application;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
 
 public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
@@ -28,6 +32,25 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
+	public static ChessPosition readChessPosition(Scanner sc) { 
+		// Método para LER a posição do xadrez com formato letra/número ('a1').
+		try {
+			String s = sc.nextLine();
+			char column = s.charAt(0); 
+			// A coluna da posição de xadrez é o primeiro caracter do String.
+			int row = Integer.parseInt(s.substring(1));
+			/* Para obtermos a linha, o '.substring(1)' recorta o string 's'
+			 * a partir da posição 1, converte em uma variável do tipo 'Integer' 
+			 * via 'parseInt' e atribui à variável 'row' do tipo inteiro.
+			 */
+			
+			return new ChessPosition(column, row); 
+		}
+		catch (RuntimeException e) { // Evita qualquer problema de formato!
+			throw new InputMismatchException("Error reading ChessPosition. Valid values are from a1 to h8!");
+			// É um tipo de exceção pré-existente no Java (Erro de entrada de dados!)
+		}
+	}
 	
 	public static void printBoard(ChessPiece[][] pieces) { 
 

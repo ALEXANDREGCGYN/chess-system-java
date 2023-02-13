@@ -94,6 +94,33 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		 */
 	}
 	
+// Projeto Sistema de Jogo de Xadrez - Aula 189.
+	
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) { 
+		// Programação defensiva: Se a posição NÃO existe, lança a mensagem!
+			
+			throw new BoardException("Position not on the board!");
+		}
+		if (piece(position) == null) {
+			/* SE a peça do tabuleiro nessa posição é igual a nulo,
+			 * significa que NÃO tem peça na posição!
+			 * Então retorna nulo!
+			 */
+			return null;
+		}
+		Piece aux = piece(position); 
+		// Recebe a peça que estiver no tabuleiro nessa posição!
+		aux.position = null; 
+		// A posição dela agora será nula = foi retirada do tabuleiro e não tem mais posição!
+		pieces[position.getRow()][position.getColumn()] = null;
+		/* Acessando a matriz de peças 'pieces' na posição da linha e 
+		 * coluna informados irá receber um valor nulo, indicando que 
+		 * não há mais peça na posição da matriz! 
+		 */
+		return aux; // Contem a peça que foi retirada!
+	}
+
 // Projeto Sistema de Jogo de Xadrez - Aula 186 = Testando se a posição existe!
 	
 	private boolean positionExists(int row, int column) {
@@ -132,5 +159,8 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		 * na posição informada!
 		 */
 	}
+	
+	
+	
 
 }
