@@ -56,6 +56,8 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		 * capturada é do tipo 'Piece' e o método é do tipo 'ChessPiece'.
 		 */
 	}
+	
+	// Projeto Sistema de Jogo de Xadrez - Aula 189
 
 	private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source); 
@@ -69,8 +71,6 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		 */
 		return capturedPiece;
 	}
-	
-	
 	
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) { //Se não existir uma peça na posição...

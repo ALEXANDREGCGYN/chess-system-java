@@ -10,6 +10,8 @@ public class ChessException extends BoardException{
 	public ChessException(String msg) {
 		super(msg);
 	}
+	// Projeto Sistema de Jogo de Xadrez - Aula 189
+	
 	/*
 	 * O método 'thereIsAPiece()' pode gerar uma nova exceção pois
 	 * foi construído na classe 'Board' lançando uma 'BoardException'.

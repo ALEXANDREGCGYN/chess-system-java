@@ -32,6 +32,14 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
+	// Projeto Sistema de Jogo de Xadrez - Aula 190
+	
+	// https://stackoverflow.com/questions/2979383/java-clear-the-console
+	public static void clearScreen() { // Método usado para limpar da tela a jogada anterior!
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}	
+	
 	public static ChessPosition readChessPosition(Scanner sc) { 
 		// Método para LER a posição do xadrez com formato letra/número ('a1').
 		try {
