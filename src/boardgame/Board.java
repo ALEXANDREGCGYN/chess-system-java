@@ -64,6 +64,7 @@ public class Board { // Projeto Sistema de Jogo de Xadrez - Aula 183
 		} // Aula 186 = Programação defensiva!
 		/* Ao acessar uma peça 'piece' em uma determinada posição 
 		 * 'position', caso a posição não exista, também lançará 
+
 		 * uma mensagem de exceção!
 		 */
 		return pieces[position.getRow()][position.getColumn()];

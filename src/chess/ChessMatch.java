@@ -49,6 +49,10 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		Position target = targetPosition.toPosition(); // Posição de destino da peça
 		validateSourcePosition(source);
 		// Valida SE na posição de origem 'source' realmente havia uma peça!
+		
+		// Projeto Sistema de Jogo de Xadrez - Aula 192.
+		validateTargetPosition(source, target);
+		
 		Piece capturedPiece = makeMove(source, target);
 		// Realiza o movimento da peça informando origem e destino no formato de matriz!
 		return (ChessPiece)capturedPiece;
@@ -95,6 +99,22 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 			 * e uma exceção será lançada!
 			 */
 		}
+	}
+	
+	// Projeto Sistema de Jogo de Xadrez - Aula 192.
+	
+	private void validateTargetPosition(Position source, Position target) {
+		/* Verifica e valida se a posição de destino 'target' é um movimento possível
+		 * 'possibleMove()' em relação a peça na posição de origem 'source'. 
+		 */
+		
+		if (!board.piece(source).possibleMove(target)) {
+			/* Se para a peça de origem 'source', a posição de destino 'target'
+			 * NÃO É UM MOVIMENTO POSSÍVEL, a peça não pode ser movimentada!
+			 */
+			throw new ChessException("The chosen piece can't move to target position!");
+		}
+		
 	}
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {

@@ -29,6 +29,13 @@ public class Position { // Projeto Sistema de Jogo de Xadrez - Aula 182
 		this.column = column;
 	}
 	
+	// Projeto Sistema de Jogo de Xadrez - Aula 192.
+	public void setValues(int row, int column) {
+		// Operação para atualizar os novos valores de uma posição!
+		this.row = row;
+		this.column = column;
+	}
+	
 	@Override
 	public String toString() {
 		return row + ", " + column;
