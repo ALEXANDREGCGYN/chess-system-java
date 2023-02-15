@@ -73,6 +73,8 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 	}
 	
 	private void validateSourcePosition(Position position) {
+		// Validação da peça de origem terá 2 verificações!
+		
 		if (!board.thereIsAPiece(position)) { //Se não existir uma peça na posição...
 			throw new ChessException("There is no piece on source position!");
 			/*
@@ -83,6 +85,14 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 			 * Para simplificar o tratamento das exceções pelo programa, foi 
 			 * atualizada a classe 'ChessException' com a troca da 
 			 * 'RuntimeException' por uma 'BoardException'.
+			 */
+		}
+		if (!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("There is no possible moves from the chosen piece!");
+			/*
+			 * Testa se existem movimentos possíveis para a peça! Se não houver
+			 * movimentos possíveis para a peça, a mesma não pode ser acessada
+			 * e uma exceção será lançada!
 			 */
 		}
 	}

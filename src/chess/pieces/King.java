@@ -22,6 +22,24 @@ public class King extends ChessPiece { // Projeto Sistema de Jogo de Xadrez - Au
 
 	}
 	
+	/* Autocorreção abaixo implementada na Aula 191 em razão da mudança 
+	 * do status da classe 'ChessPiece' de concreta para 'abstract'.
+	 */
+	
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+		// Criada uma matriz com a mesma dimensão (linhas e colunas) do tabuleiro!
+		return mat;
+		
+		/* Temporariamente, sempre que chamados os movimentos possíveis de
+		 * uma peça desta classe, retornará uma matriz com todas as posições
+		 * valendo 'false'.
+		 * 
+		 *  É como se a peça estivesse presa!
+		 */
+	}
+	
 	
 
 }

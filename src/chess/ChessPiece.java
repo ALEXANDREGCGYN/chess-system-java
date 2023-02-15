@@ -2,7 +2,9 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
-public class ChessPiece extends Piece{ // Projeto Sistema de Jogo de Xadrez - Aula 184
+public abstract class ChessPiece extends Piece{ // Projeto Sistema de Jogo de Xadrez - Aula 184
+	
+	// Alterado para 'abstract' - Aula 191. Também nas classes 'King' e 'Rook'.
 	
 	private Color color;
 

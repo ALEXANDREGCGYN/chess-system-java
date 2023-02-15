@@ -1,6 +1,7 @@
 package boardgame;
 
-public class Piece { // Projeto Sistema de Jogo de Xadrez - Aula 183
+public abstract class Piece { // Projeto Sistema de Jogo de Xadrez - Aula 183
+	//  Classe alterada para 'abstract' em razão do método 'possibleMoves()'.
 	
 	protected Position position; 
 	private Board board;
@@ -20,10 +21,54 @@ public class Piece { // Projeto Sistema de Jogo de Xadrez - Aula 183
 
 	protected Board getBoard() { 
 		return board;
-// Somente classes e subclasses do mesmo pacote poderão acessar o 'Board' 
+	// Somente classes e subclasses do mesmo pacote poderão acessar o 'Board' 
 	}
 
-	// setBoard(Board board) = NÃO SERÁ USADO! O tabuleiro não será alterado!
+// setBoard(Board board) = NÃO SERÁ USADO! O tabuleiro não será alterado!
+	
+	// Projeto Sistema de Jogo de Xadrez - Aula 191.
+	
+	public abstract boolean[][] possibleMoves(); 
+	// Método ABSTRATO que retorna uma matriz booleana.
+	
+	public boolean possibleMove(Position position) {
+		return possibleMoves()[position.getRow()][position.getColumn()];
+		/*
+		 * Este método concreto 'possibleMove()' se utilizou do método 
+		 * abstrato acima 'possibleMoves()' evidenciando o chamado 
+		 * 'Hook methods' (que em inglês significa 'gancho').
+		 * 
+		 * É um método faz um gancho com a subclasse!
+		 */
+	}
+	
+	public boolean isThereAnyPossibleMove() { // Outro caso de 'Hook Method'!
+		// Informa se existe pelo menos um movimento possível para a peça!
+		boolean[][] mat = possibleMoves();
+		/* Chama novamente o método abstrato 'possibleMoves()' retornando
+		 * uma matriz booleana.
+		 */
+		for (int i = 0; i < mat.length; i++) {
+			for (int j = 0; j < mat.length; j++) {
+		/* Varrem a matriz para verificar se pelo menos uma posição da matriz
+		 * que seja verdadeiro (movimento possível para a peça!).
+		 * Se não houver posição verdadeiro ==> A peça não pode ser movida!  
+		 */
+				if (mat[i][j]) {
+					return true;
+				/* Se na linha 'i', na coluna 'j' da matriz a posição for
+				 * verdadeiro ==> Existe um movimento possível!
+				 */
+				}
+			}
+		}
+		return false; 
+		/* Se a varredura se esgotar e não retornar 'true', significa que
+		 * nenhuma posição é verdadeira e retorna 'false'.
+		 */
+	}
+	
+	
 	
 	
 	
