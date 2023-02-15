@@ -44,6 +44,21 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		return mat;	// Retorna a matriz de peças da partida de xadrez.
 	}
 	
+	// Aula 193 - Imprimindo os movimentos possíveis
+	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		/* Permite, na aplicação, imprimir as posições possíveis a partir
+		 * da posição de origem!
+		 */
+		Position position = sourcePosition.toPosition();
+		// Converte a posição de xadrez em uma posição de matriz.
+		validateSourcePosition(position);
+		// Valida a posição de origem no ato da entrada do usuário!
+		return board.piece(position).possibleMoves();
+		// Retorna os movimentos possíveis da peça nessa posição!
+	}
+	
+	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition(); // Posição de origem da peça
 		Position target = targetPosition.toPosition(); // Posição de destino da peça

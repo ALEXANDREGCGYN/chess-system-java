@@ -29,6 +29,20 @@ public class ChessProgram { // Projeto Sistema de Jogo de Xadrez - Aula 181
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);
 				
+				// Aula 193 - Imprimindo os movimentos possíveis
+				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+				/* Declara uma matriz recebendo os movimentos possíveis a
+				 * partir da posição de origem informada.
+				 */
+				UI.clearScreen(); // Limpa a tela...
+				UI.printBoard(chessMatch.getPieces(), possibleMoves);
+				/* Imprime novamente o tabuleiro, criando uma sobrecarga
+				 * do 'printBoard()' passando os movimentos possíveis.
+				 * Será responsável por imprimir o tabuleiro COLORINDO as
+				 * posições possíveis para onde a peça pode ser movida!
+				 */
+				
+				
 				System.out.println();
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);

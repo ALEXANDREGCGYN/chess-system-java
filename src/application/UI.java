@@ -69,7 +69,24 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j]);
+				printPiece(pieces[i][j], false);
+				// Indica que nenhuma peça deve ter o fundo colorido!
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
+	// Aula 193 - Imprimindo os movimentos possíveis
+	
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+		// Nova versão vai imprimir a matriz de movimentos possíveis
+
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j], possibleMoves[i][j]);
+				// Pinta o fundo colorido dependendo da posição i e j.
 			}
 			System.out.println();
 		}
@@ -87,9 +104,12 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 *	ESTE MÉTODO FOI TROCADO PELO MÉTODO ABAIXO RETIRADO DO GITHUB acenelio!!!
 */
 	
-	private static void printPiece(ChessPiece piece) {
-    	if (piece == null) {
-            System.out.print("-");
+	private static void printPiece(ChessPiece piece, boolean background) { // Aula 193 - Alterado 
+    	if (background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
+		if (piece == null) {
+            System.out.print("-" + ANSI_RESET);
         }
         else {
             if (piece.getColor() == Color.WHITE) {
