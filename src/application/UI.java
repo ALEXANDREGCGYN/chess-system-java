@@ -3,6 +3,7 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -59,6 +60,16 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 			// É um tipo de exceção pré-existente no Java (Erro de entrada de dados!)
 		}
 	}
+	
+	// Aula 195 - Método para imprimir a partida (não só o tabuleiro!).
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getPieces()); // 1º Imprime o tabuleiro...
+		System.out.println(); // Quebra de linha...
+		System.out.println("Turn: " + chessMatch.getTurn()); // Imprime o turno...
+		System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());;
+		// Mensagem de "Aguardando o jogador ??"
+	}
+	
 	
 	public static void printBoard(ChessPiece[][] pieces) { 
 

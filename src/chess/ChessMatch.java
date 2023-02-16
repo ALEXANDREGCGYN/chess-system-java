@@ -10,6 +10,8 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 	
 	// Esta classe CONTÉM AS REGRAS do jogo de xadrez!
 	
+	private int turn; // Aula 195 - Trocando de jogador a cada turno.
+	private Color currentPlayer;
 	private Board board;
 
 	public ChessMatch() {
@@ -18,7 +20,17 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		 * Quem deve saber a dimensão do tabuleiro é a classe que contém 
 		 * as regras do jogo!
 		 */
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+	
+	public int getTurn() { // Aula 195 - Trocando de jogador a cada turno.
+		return turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	public ChessPiece[][] getPieces(){
@@ -70,6 +82,9 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		
 		Piece capturedPiece = makeMove(source, target);
 		// Realiza o movimento da peça informando origem e destino no formato de matriz!
+		
+		nextTurn(); // Aula 195 - Método para trocar o turno.
+		
 		return (ChessPiece)capturedPiece;
 		/* Retorna a peça capturada fazendo um 'downcasting' pois a peça
 		 * capturada é do tipo 'Piece' e o método é do tipo 'ChessPiece'.
@@ -106,6 +121,22 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 			 * 'RuntimeException' por uma 'BoardException'.
 			 */
 		}
+		
+		// Aula 195 - Método para trocar o turno.
+		// Verifica se o jogador atual é daquela cor da peça escolhida!
+		if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+			/* Feito 'Downcasting' pra adequar o 'get.Color()', que é da
+			 * classe 'ChessPiece', ao 'board.piece()' que é da classe
+			 * mais genérica 'Piece'.
+			 * 
+			 *  Capta a peça do tabuleiro na posição, faz o downcasting e
+			 *  testa a cor: Se a cor for diferente do jogador atual ==> 
+			 *  A peça é do jogador adversário e não poderá ser movida!
+			 */
+			throw new ChessException("The chosen piece is not yours!");
+		}
+		
+		
 		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("There is no possible moves from the chosen piece!");
 			/*
@@ -131,6 +162,18 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		}
 		
 	}
+	
+	// Aula 195 - Método para trocar o turno.
+	private void nextTurn(){
+		turn ++; // Incrementa os turnos...
+		
+		// Operador Condicional Ternário:
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+		/* Se o jogador atual for WHITE, então agora será BLACK; Caso
+		 * contrário, será WHITE.
+		 */
+	}
+	
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 	/* Recebe as coordenadas do xadrez!

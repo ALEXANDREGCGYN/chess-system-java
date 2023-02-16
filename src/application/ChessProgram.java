@@ -19,7 +19,8 @@ public class ChessProgram { // Projeto Sistema de Jogo de Xadrez - Aula 181
 		while (true) {
 			try { // Projeto Sistema de Jogo de Xadrez - Aula 190
 				UI.clearScreen(); 
-				UI.printBoard(chessMatch.getPieces());
+				//UI.printBoard(chessMatch.getPieces()); // Aula 195 - Troca de turno.
+				UI.printMatch(chessMatch);
 				
 				/* Função 'UI' = User Interface pra imprimir as peças da partida,
 				 * que traz o método 'printBoard()' que recebe a matriz de peças
