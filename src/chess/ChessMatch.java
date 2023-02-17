@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -13,7 +16,15 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 	private int turn; // Aula 195 - Trocando de jogador a cada turno.
 	private Color currentPlayer;
 	private Board board;
-
+	
+	// Aula 196 - Manipulando peças capturadas
+	private List<Piece> piecesOnTheBoard = new ArrayList<>();
+	private List<Piece> capturedPieces = new ArrayList<>();
+	/* Lista alterada de 'ChessPiece' para uma mais genérica 
+	 * 'Piece' para não gerar conflito com a validação 'if' do 
+	 * método 'makeMove()'. 
+	 */
+	
 	public ChessMatch() {
 		board = new Board(8, 8); 
 		/*
@@ -103,6 +114,16 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 		 * a peça que estava na origem 'Piece p' na posição 'target' de 
 		 * destino com o 'placePiece(p, target)'.  
 		 */
+		
+		// Aula 196 - Manipulando peças capturadas
+		if (capturedPiece != null) { 
+			// Se não estava vazia, significa que capturou uma peça...
+			piecesOnTheBoard.remove(capturedPiece); 
+			// Remove da lista de peças no tabuleiro...
+			capturedPieces.add(capturedPiece);
+			// Adiciona na lista de peças capturadas...
+		}
+		
 		return capturedPiece;
 	}
 	
@@ -176,20 +197,24 @@ public class ChessMatch { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188
 	
 
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
-	/* Recebe as coordenadas do xadrez!
+	/* Intancia uma nova peça ao receber as coordenadas do xadrez!
 	 * Usa a operação 'toPosition()' da classe 'ChessPosition' para 
 	 * instanciar as peças de xadrez informando as coordenadas no sistema 
 	 * do xadrez e não no sistema da matriz para não ficar confuso!!!
 	 */
 		
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
-		/*
-		 * Chama o 'placePiece' da classe 'Board' passando a peça 'piece'. 
+		/* Chama o 'placePiece' da classe 'Board' passando a peça 'piece'. 
 		 * Intancia uma 'ChessPosition' recebendo a coluna e a linha e 
 		 * converte para a posição de matriz com o 'toPosition()'.
 		 * 
-		 * Temos então uma operação de colocar peça passando as coordenadas
-		 * do xadrez.
+		 * Temos então uma operação de colocar peça no tabuleiro passando 
+		 * as coordenadas do xadrez.
+		 */
+		
+		piecesOnTheBoard.add(piece); // Aula 196 - Manipulando peças capturadas
+		/* Além de colocar a peça no tabuleiro com o comando acima, insere
+		 * a peça na lista de peças do tabuleiro!
 		 */
 
 	}

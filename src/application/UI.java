@@ -1,7 +1,11 @@
 package application;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import chess.ChessMatch;
 import chess.ChessPiece;
@@ -62,14 +66,15 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
 	}
 	
 	// Aula 195 - Método para imprimir a partida (não só o tabuleiro!).
-	public static void printMatch(ChessMatch chessMatch) {
+	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
 		printBoard(chessMatch.getPieces()); // 1º Imprime o tabuleiro...
 		System.out.println(); // Quebra de linha...
+		printCapturedPieces(captured);
+		System.out.println();
 		System.out.println("Turn: " + chessMatch.getTurn()); // Imprime o turno...
 		System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());;
 		// Mensagem de "Aguardando o jogador ??"
 	}
-	
 	
 	public static void printBoard(ChessPiece[][] pieces) { 
 
@@ -133,4 +138,38 @@ public class UI { // Projeto Sistema de Jogo de Xadrez - Aula 184 e 188.
         System.out.print(" ");
 	}
 	
+	// Aula 196 - Manipulando peças capturadas.
+	
+	private static void printCapturedPieces(List<ChessPiece> captured) {
+		// Imprime na tela uma lista de peças de xadrez capturadas!
+		
+		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
+		/* Lista de peças brancas 'white' capturadas filtrando todos os 
+		 * elementos de cor branca das listas com o uso da expressão Lambda.
+		 * 
+		 * Usa o 'stream().filter()' para pegar um elemento 'x' da 
+		 * lista e verifica a condição através do 'getColor()' se é 
+		 * igual à cor branca 'Color.WHITE'.
+		 */
+		
+		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
+		// Mesma função para as peças pretas!
+		
+		System.out.println("Captured pieces: ");
+		System.out.print("White: ");
+		System.out.print(ANSI_WHITE);
+		// Garante que a lista seja impressa na cor branca!
+		
+		System.out.println(Arrays.toString(white.toArray()));
+		// Padrão de impressão de um 'Array' no Java!
+		
+		System.out.print(ANSI_RESET);
+		// Reseta a cor da impressão!
+		
+		System.out.print("Black: ");
+		System.out.print(ANSI_YELLOW);
+		System.out.println(Arrays.toString(black.toArray()));
+		System.out.print(ANSI_RESET);
+
+	}
 }
